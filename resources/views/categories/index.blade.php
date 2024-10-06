@@ -19,7 +19,7 @@
         <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button type="submit" class="danger">Törlés</button>
+            <button type="submit" class="danger" onclick="return confirm('Biztos???')">Törlés</button>
         </form>
     </li>
     @endforeach
