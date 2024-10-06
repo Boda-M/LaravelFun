@@ -2,7 +2,9 @@
 
 @section('content')
 
-<h1>AI Eszközök</h1>
+<h1>AI Eszközök 
+    <a href="{{ route('aitools.create') }}" title="Új AI eszköz">🧞</a>
+</h1>
 
 @if(session('success'))
 <div class="alert alert-success">

@@ -3,9 +3,15 @@
 @section('content')
 <h1>Új AI Eszköz</h1>
 
-@error('name')
-<div class="alert alert-warning">{{ $message }}</div>
-@enderror
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 <form action="{{ route('aitools.store') }}" method="post">
 @csrf

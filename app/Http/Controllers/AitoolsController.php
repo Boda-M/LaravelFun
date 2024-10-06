@@ -31,6 +31,11 @@ class AitoolsController extends Controller
      */
     public function store(Request $request)
     {
+        $hasFreePlan = $request->has('hasFreePlan');
+        if ($hasFreePlan) {
+            $request->merge(['hasFreePlan' => true]);
+        }
+
         $request->validate([
             'name' => 'required|string|max:255|min:3',
             'category_id' => 'required|exists:categories,id',
@@ -52,7 +57,8 @@ class AitoolsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $aitool = Aitool::find($id);
+        return view('aitools.show', compact('aitool'));
     }
 
     /**
