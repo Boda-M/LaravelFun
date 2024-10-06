@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Aitool;
+use App\Models\Tag;
 use App\Models\Category;
 
 use Illuminate\Http\Request;
@@ -13,7 +14,10 @@ class AitoolsController extends Controller
      */
     public function index()
     {
-        $aitools = Aitool::all();
+        $sort_by = request()->query('sort_by', 'name');
+        $sort_dir = request()->query('sort_dir', 'asc');
+        $aitools = Aitool::with('tags')->orderBy($sort_by, $sort_dir)->paginate(5);
+        
         return view('aitools.index', compact('aitools'));
     }
 
@@ -23,7 +27,8 @@ class AitoolsController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('aitools.create', compact('categories'));
+        $tags = Tag::all();
+        return view('aitools.create', compact('categories', 'tags'));
     }
 
     /**
@@ -39,13 +44,15 @@ class AitoolsController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|min:3',
             'category_id' => 'required|exists:categories,id',
-            'description' => 'required|string|min:20',
+            'description' => 'required|string|min:5',
             'link' => 'required|url',
             'hasFreePlan' => 'boolean',
             'price' => 'nullable|numeric|min:0',
         ]);
 
-        Aitool::create($request->all());
+        $aitool = Aitool::create($request->all());
+
+        $aitool->tags()->attach($request->tags);
 
         return redirect()->route('aitools.index')->with('success', 'Sikeres hozzáadás');
 
@@ -57,7 +64,7 @@ class AitoolsController extends Controller
      */
     public function show(string $id)
     {
-        $aitool = Aitool::find($id);
+        $aitool = Aitool::with('tags')->find($id);
         return view('aitools.show', compact('aitool'));
     }
 
