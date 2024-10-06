@@ -1,6 +1,6 @@
 <h1>Új kategória<h1>
 
-<form action="{{ route('categories.store') }}">
+<form action="{{ route('categories.store') }}" method="post">
     @csrf
     <fieldset>
         <label for="name">Kategória név</label>

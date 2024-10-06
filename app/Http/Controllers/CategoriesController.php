@@ -12,7 +12,8 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('categories.index', compact('categories'));
     }
 
     /**
@@ -33,6 +34,10 @@ class CategoriesController extends Controller
         ]);
 
         $category = new Category();
+        $category->name = $request->name;
+        $category->save();
+
+        return redirect()->route('categories.index')->with('success', 'Kategória sikeresen létrehozva.');
     }
 
     /**
