@@ -1,3 +1,7 @@
+@extends('layout')
+
+@section('content')
+
 <h1>Kategóriák</h1>
 
 @if(session('success'))
@@ -11,3 +15,5 @@
     <li>{{$category->id}} - {{ $category->name}}</li>
     @endforeach
 </ul>
+
+@endsection

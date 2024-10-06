@@ -1,4 +1,11 @@
-<h1>Új kategória<h1>
+@extends('layout')
+
+@section('content')
+<h1>Új kategória</h1>
+
+@error('name')
+<div class="alert alert-warning">{{ $message }}</div>
+@enderror
 
 <form action="{{ route('categories.store') }}" method="post">
     @csrf
@@ -8,3 +15,4 @@
     </fieldset>
     <button type="submit">Ment</button>
 </form>
+@endsection

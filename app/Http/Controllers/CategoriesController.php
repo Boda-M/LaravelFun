@@ -29,9 +29,9 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|min:3|max:255',
-        ]);
+        $request->validate(
+            ['name' => 'required|min:3|max:255',], 
+            ['name.min' => 'Min 3 karakter', ]);
 
         $category = new Category();
         $category->name = $request->name;
