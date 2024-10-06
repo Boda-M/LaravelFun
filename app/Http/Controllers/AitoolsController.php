@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Aitool;
+use App\Models\Category;
 
 use Illuminate\Http\Request;
 
@@ -11,7 +13,8 @@ class AitoolsController extends Controller
      */
     public function index()
     {
-        //
+        $aitools = Aitool::all();
+        return view('aitools.index', compact('aitools'));
     }
 
     /**
@@ -19,7 +22,8 @@ class AitoolsController extends Controller
      */
     public function create()
     {
-        return view('aitools.create');
+        $categories = Category::all();
+        return view('aitools.create', compact('categories'));
     }
 
     /**
@@ -27,7 +31,20 @@ class AitoolsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255|min:3',
+            'category_id' => 'required|exists:categories,id',
+            'description' => 'required|string|min:20',
+            'link' => 'required|url',
+            'hasFreePlan' => 'boolean',
+            'price' => 'nullable|numeric|min:0',
+        ]);
+
+        Aitool::create($request->all());
+
+        return redirect()->route('aitools.index')->with('success', 'Sikeres hozzáadás');
+
+
     }
 
     /**

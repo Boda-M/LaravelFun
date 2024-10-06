@@ -14,6 +14,14 @@
         <input type="text" name="name" id="name">
     </fieldset>
     <fieldset>
+        <label for="category_id">Kategória</label>
+        <select name="category_id" id="category_id">
+            @foreach ($categories as $category)
+            <option value="{{ $category->id }}">{{ $category->name }}</option>
+            @endforeach
+        </select>
+    </fieldset>
+    <fieldset>
         <label for="description">Leírás</label>
         <textarea name="description" id="description"></textarea>
     </fieldset>
