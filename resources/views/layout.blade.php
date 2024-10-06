@@ -18,6 +18,7 @@
                 <li><a href="{{route('aitools.index')}}">AI eszközök</a></li>
                 <li><a href="{{route('categories.index')}}">Kategóriák</a></li>
                 <li><a href="{{route('categories.create')}}">Új kategória</a></li>
+                <li><a href="{{route('tags.create')}}">Új címke</a></li>
             </ul>
         </nav>
     </header>
